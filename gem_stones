@@ -2,40 +2,24 @@
 #include<stdlib.h>
 #include<string.h>
 
-int main() 
+int main()
 {
-    int n,i,j,z,k;
-    char str[100][100];
-    int alpha[26];
-    int count=0;
-    char c;
-    
-    for(i=0;i<26;i++)
-         alpha[i]=0;
-    
-    scanf("%d",&n);
-    
-    for(z=0;z<n;z++)
-        scanf("%s",str[z]);
-    
-    for(z=0;z<n;z++)
-    {
-            for(i=0;i<strlen(str[z]);i++)
-            {
-		        c=str[z][i];
-		        alpha[c-'a']+=1;
-            //alpha[str[z][i]-'a']++;
-	          }
-	          for(k=0;k<26;k++)
-	              if(alpha[k]!=0 && alpha[k]>z)
-		                  alpha[k]=z+1;
-		            else
-			                alpha[k]=-999;
-            
-    }
-    for(i=0;i<26;i++)
-        if(alpha[i]==n)
-            count++;
-    printf("%d",count);   
-    return 0;
+  int n,i,j,alpha[26]={0};//partial initialization all the rest automaticly 0
+  char str[100];
+  scanf("%d",&n);
+  
+  for(i=0;i<n;i++) //checks for the elements
+  {
+    scanf("%s",str);//need not store the string for we donot need it in futre comutation
+    j=strlen(str);// so that time is not wasted repetedly on comuting length s it will not change
+    while(--j>=0)
+      if((alpha[str[j]-'a'])==i) //to exclude repetition if string has any; ELSE if condition not required
+        alpha[str[j]-'a']++;
+  }
+  
+  for(j=i=0;i<26;i++)
+    if(alpha[i]==n)
+      j++;
+  printf("%d\n\n",j);
+  return 0;
 }
